@@ -42,6 +42,37 @@ Editar o endereço de um cliente seguindo as regras de seus atributos.
 
 Excluir endereços de um cliente.
 
-
-
 ## [Vídeo criando o projeto](https://youtu.be/quhYsONAqSQ).
+
+---
+
+## Rodar o projeto
+
+### Clone o repositório:
+```
+git clone https://github.com/mvfernandes/client_crud_laravel_api.git client_crud_laravel_api
+```
+
+### Acesse o projeto:
+```
+cd client_crud_laravel_api
+```
+
+### Gere o .env:
+```
+cp .env.example .env && php artisan key:generate
+
+---------------------------------
+
+No .env atribua o nome da base mysql em DB_DATABASE
+```
+
+### Instale as dependências do projeto:
+```
+composer install
+```
+
+### Rode o projeto:
+```
+php artisan serve
+```
