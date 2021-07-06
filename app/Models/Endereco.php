@@ -15,5 +15,6 @@ class Endereco extends Model
         'UF',
         'bairro',
         'complemento',
+        'tipo',
     ];
 }
