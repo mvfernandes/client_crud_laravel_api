@@ -31,17 +31,17 @@ class ClienteController extends Controller
     {
         foreach ($this->clienteRequiredFields as $key) {
             if (!$request->get($key)) {
-                return response()->json(new BaseResponse(['field' => $key], false, 'Campos requeridos'));
+                return response()->json(new BaseResponse(['field' => $key, $request->all()], false, 'Campos requeridos'));
             }
         }
 
-        Cliente::create([
+        $cliente = Cliente::create([
             'nome' => $request->get('nome'),
             'data_nascimento' => $request->get('data_nascimento'),
             'sexo' => $request->get('sexo'),
         ]);
 
-        return response()->json(new BaseResponse(null, true, 'Cliente criado com sucesso'));
+        return response()->json(new BaseResponse(['id' => $cliente->id], true, 'Cliente criado com sucesso'));
     }
 
     public function show($id)
@@ -57,7 +57,7 @@ class ClienteController extends Controller
     {
         $cliente = Cliente::find($id);
         if ($cliente) {
-            foreach ($this->requiredFields as $key) {
+            foreach ($this->clienteRequiredFields as $key) {
                 if (!$request->get($key)) {
                     return response()->json(new BaseResponse(['field' => $key], false, 'Campos requeridos'));
                 }
@@ -94,7 +94,7 @@ class ClienteController extends Controller
 
         $cliente = Cliente::find($id);
         if ($cliente) {
-            $cliente->enderecos()->create(
+            $endereco = $cliente->enderecos()->create(
                 [
                     'cep' => $request->get('cep'),
                     'logradouro' => $request->get('logradouro'),
@@ -106,7 +106,7 @@ class ClienteController extends Controller
                 ]
             );
 
-            return response()->json(new BaseResponse(null, true, 'Endereço criado com sucesso'));
+            return response()->json(new BaseResponse(['id' => $endereco->id], true, 'Endereço criado com sucesso'));
         }
         return response()->json(new BaseResponse(null, false, 'Cliente não encontrado'));
     }
